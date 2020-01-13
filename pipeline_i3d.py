@@ -41,8 +41,8 @@ bOflow = True
     "fDurationAvg" : 3.0} # seconds
 """
 
-diVideoSet = {"sName" : "chalearn",
-    "nClasses" : 249,   # number of classes
+diVideoSet = {"sName" : "pakhi",
+    "nClasses" : 4,   # number of classes
     "nFramesNorm" : 40,    # number of frames per video
     "nMinDim" : 240,   # smaller dimension of saved video-frames
     "tuShape" : (240, 320), # height, width

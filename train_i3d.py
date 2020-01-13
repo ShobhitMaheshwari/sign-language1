@@ -86,13 +86,13 @@ def train_I3D_oflow_end2end(diVideoSet):
     print(os.getcwd())
 
     # read the ChaLearn classes
-    oClasses = VideoClasses(sClassFile)
+    #oClasses = VideoClasses(sClassFile)
 
     # Load training data
     genFramesTrain = FramesGenerator(sOflowDir + "/train", nBatchSize, 
-        diVideoSet["nFramesNorm"], 224, 224, 2, oClasses.liClasses)
+        diVideoSet["nFramesNorm"], 224, 224, 2)
     genFramesVal = FramesGenerator(sOflowDir + "/val", nBatchSize, 
-        diVideoSet["nFramesNorm"], 224, 224, 2, oClasses.liClasses)
+        diVideoSet["nFramesNorm"], 224, 224, 2)
 
     # Load pretrained i3d model and adjust top layer 
     print("Load pretrained I3D flow model ...")
@@ -100,15 +100,16 @@ def train_I3D_oflow_end2end(diVideoSet):
         include_top=False,
         weights='flow_imagenet_and_kinetics',
         input_shape=(diVideoSet["nFramesNorm"], 224, 224, 2))
-    print("Add top layers with %d output classes ..." % oClasses.nClasses)
+    print("Add top layers with %d output classes ..." % 4)
     keI3DOflow = layers_freeze(keI3DOflow)
-    keI3DOflow = add_i3d_top(keI3DOflow, oClasses.nClasses, dropout_prob=0.5)
+    keI3DOflow = add_i3d_top(keI3DOflow, 4, dropout_prob=0.5)
         
     # Prep logging
     sLog = time.strftime("%Y%m%d-%H%M", time.gmtime()) + \
         "-%s%03d-oflow-i3d"%(diVideoSet["sName"], diVideoSet["nClasses"])
     
     # Helper: Save results
+    os.makedirs("log", exist_ok=True)
     csv_logger = keras.callbacks.CSVLogger("log/" + sLog + "-acc.csv", append = True)
 
     # Helper: Save the model

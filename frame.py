@@ -252,9 +252,9 @@ def videosDir2framesDir(sVideoDir:str, sFrameDir:str, nFramesNorm:int = None,
         arFrames = video2frames(sVideoPath, nResizeMinDim)
 
         # length and fps
-        fVideoSec = video_length(sVideoPath)
+        #fVideoSec = video_length(sVideoPath)
         nFrames = len(arFrames)
-        fFPS = nFrames / fVideoSec   
+        #fFPS = nFrames / fVideoSec
 
         # downsample
         if nFramesNorm != None: 
@@ -267,7 +267,7 @@ def videosDir2framesDir(sVideoDir:str, sFrameDir:str, nFramesNorm:int = None,
         # write frames to .jpg files
         frames2files(arFrames, sTargetDir)         
 
-        print("Video %5d | %5.1f sec | %d frames | %4.1f fps | saved %s in %s" % (nCounter, fVideoSec, nFrames, fFPS, str(arFrames.shape), sTargetDir))
+        print("Video %5d |  %d frames | saved %s in %s" % (nCounter, nFrames, str(arFrames.shape), sTargetDir))
         nCounter += 1      
 
     return
@@ -277,7 +277,7 @@ def unittest(sVideoDir, nSamples = 100):
     print("\nAnalyze video durations and fps from %s ..." % (sVideoDir))
     print(os.getcwd())
 
-    liVideos = glob.glob(sVideoDir + "/*/*.mp4") + glob.glob(sVideoDir + "/*/*.avi")
+    liVideos = glob.glob(sVideoDir + "/*/*.mp4") + glob.glob(sVideoDir + "/*/*.avi") + glob.glob(sVideoDir + "/*/*.webm")
     
     if len(liVideos) == 0: raise ValueError("No videos detected")
 
@@ -306,5 +306,6 @@ def unittest(sVideoDir, nSamples = 100):
 
 if __name__ == '__main__':
 
-    unittest("data-set/01-ledasila/021/train", 100)
-    unittest("data-set/04-chalearn/010/train", 100)
+    #unittest("data-set/01-ledasila/021/train", 100)
+    #unittest("data-set/04-chalearn/010/train", 100)
+    unittest("data-set/pakhi/004/train", 100)

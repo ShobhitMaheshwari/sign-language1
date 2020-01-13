@@ -33,18 +33,18 @@ class OpticalFlow:
         self.arPrev = np.zeros((1,1))
 
         if sAlgorithm == "tvl1-fast":
-            self.oTVL1 = cv2.DualTVL1OpticalFlow_create(
+            self.oTVL1 = cv2.optflow.DualTVL1OpticalFlow_create(
                 scaleStep = 0.5, warps = 3, epsilon = 0.02)
                 # Mo 25.6.2018: (theta = 0.1, nscales = 1, scaleStep = 0.3, warps = 4, epsilon = 0.02)
                 # Very Fast (theta = 0.1, nscales = 1, scaleStep = 0.5, warps = 1, epsilon = 0.1)
             sAlgorithm = "tvl1"
 
         elif sAlgorithm == "tvl1-warps1":
-            self.oTVL1 = cv2.DualTVL1OpticalFlow_create(warps = 1)
+            self.oTVL1 = cv2.optflow.DualTVL1OpticalFlow_create(warps = 1)
             sAlgorithm = "tvl1"
 
         elif sAlgorithm == "tvl1-quality":
-            self.oTVL1 = cv2.DualTVL1OpticalFlow_create()
+            self.oTVL1 = cv2.optflow.DualTVL1OpticalFlow_create()
                 # Default: (tau=0.25, lambda=0.15, theta=0.3, nscales=5, warps=5, epsilon=0.01, 
                 #innnerIterations=30, outerIterations=10, scaleStep=0.8, gamma=0.0, 
                 #medianFiltering=5, useInitialFlow=False)
